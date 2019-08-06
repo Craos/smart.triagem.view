@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang='pt'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Informações do veículo</title>
+    <style>
+        
+        .lado {
+            min-width: 33%;
+            width: auto;
+            float: left;
+        }
+        
+        .linha  {
+            line-height: 22px;
+        }
+
+        .campo {
+            font-weight: bold;
+            float: left;
+        }
+
+        .valor {
+
+        }
+    </style>
+</head>
+<body>
+    <div class='lado'>
+        <div class='linha'><div class='campo'>Cadastrado em: </div><div class='valor'>#data# #timerg#</div></div>
+        <div class='linha'><div class='campo'>Por: </div><div class='valor'>#uidins#</div></div>
+        <div class='linha'><div class='campo'>ID: </div><div class='valor'>#num#</div></div>
+    </div>
+    <div class='lado'>
+        <div class='linha'><div class='campo'>ID: </div><div class='valor'>#placa#</div></div>
+        <div class='linha'><div class='campo'>Autenticação: </div><div class='valor'>#autenticacao#</div></div>
+        <div class='linha'><div class='campo'>Última entrada: </div><div class='valor'>#entrada#</div></div>
+        <div class='linha'><div class='campo'>Saída: </div><div class='valor'>#saida#</div></div>
+    </div>
+    <div class='lado' style='float: right'>
+        <img alt='' src='#foto#' width='168px'>
+    </div>
+</body>
+</html>
