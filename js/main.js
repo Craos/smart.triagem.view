@@ -49,32 +49,23 @@ dhtmlxEvent(window, "load", function () {
 
             layout.cells('a').progressOn();
 
-            let veiculo = new Info();
-            veiculo.api = '/smart/public/triagem_pesquisa_veiculo';
-            veiculo.Listar({
-                filter: {
-                    placa: placa
-                },
-                callback: function (veiculo_info) {
-
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:6070/pesquisa_veiculo?placa=eq.' + placa,
+                dataType: 'json',
+                success: function (response) {
                     layout.cells('a').progressOff();
 
                     list.clearAll();
+                    list.add(response[0]);
 
-                    let info = veiculo_info.dados[0];
-
-                    list.add(info);
-
-                    let hist = new Info();
-                    hist.api = '/smart/public/triagem_passagem';
-                    hist.Listar({
-                        filter: {
-                            placa: placa
-                        }, callback: function (passagem) {
-
-
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://localhost:6070/passagem?placa=eq.' + placa,
+                        dataType: 'json',
+                        success: function (response) {
                             grid.clearAll();
-                            passagem.dados.filter(function (item) {
+                            response.filter(function (item) {
 
                                 grid.addRow(item.id, [
                                     item.filedate,
@@ -92,12 +83,25 @@ dhtmlxEvent(window, "load", function () {
                                     item.vaga
                                 ]);
                             })
-
                         }
-                    })
+                    }).fail(function (jqXHR) {
+                        dhtmlx.alert({
+                            title: 'Atenção',
+                            type: 'alert-error',
+                            text: jqXHR.responseJSON.message
+                        });
+
+                    });
 
                 }
+            }).fail(function (jqXHR) {
+                dhtmlx.alert({
+                    title: 'Atenção',
+                    type: 'alert-error',
+                    text: jqXHR.responseJSON.message
+                });
             });
+
         }
     });
 });
